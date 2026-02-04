@@ -1,0 +1,149 @@
+{
+  "name": "lintament",
+  "displayName": "Lintament",
+  "description": "An LLM-powered linter that replaces bad code with ancient wisdom. Because sometimes, the best fix is philosophical acceptance.",
+  "version": "0.0.1",
+  "publisher": "lintament",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Linters",
+    "Other"
+  ],
+  "keywords": [
+    "linter",
+    "ai",
+    "llm",
+    "code-quality",
+    "refactoring"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "lintament.judge",
+        "title": "Judge Current File",
+        "category": "Lintament"
+      },
+      {
+        "command": "lintament.judgeWorkspace",
+        "title": "Judge Entire Workspace",
+        "category": "Lintament"
+      },
+      {
+        "command": "lintament.consult",
+        "title": "Consult the Ancients",
+        "category": "Lintament"
+      },
+      {
+        "command": "lintament.regress",
+        "title": "Regress (Undo Last Fix)",
+        "category": "Lintament"
+      }
+    ],
+    "configuration": {
+      "title": "Lintament",
+      "properties": {
+        "lintament.wisdomLevel": {
+          "type": "string",
+          "enum": [
+            "gentle",
+            "firm",
+            "maximum",
+            "ruthless"
+          ],
+          "default": "ruthless",
+          "description": "The level of judgment to apply. Options: 'gentle', 'firm', 'maximum', 'ruthless'"
+        },
+        "lintament.mercyMode": {
+          "type": "boolean",
+          "default": false,
+          "description": "Set to true if you are emotionally fragile. Will make the LLM passive-aggressive instead of directly destructive."
+        },
+        "lintament.quoteSource": {
+          "type": "string",
+          "enum": [
+            "sun-tzu",
+            "marcus-aurelius",
+            "confucius",
+            "your-disappointed-father"
+          ],
+          "default": "sun-tzu",
+          "description": "Source of wisdom quotes"
+        },
+        "lintament.judgmentThreshold": {
+          "type": "number",
+          "default": 0.1,
+          "minimum": 0,
+          "maximum": 1,
+          "description": "How bad code must be before replacement (0-1). Lower = more judgmental"
+        },
+        "lintament.preserveComments": {
+          "type": "boolean",
+          "default": false,
+          "description": "Comments are just excuses for bad code"
+        },
+        "lintament.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "OpenAI API key for LLM analysis (or leave empty to use mock mode)"
+        },
+        "lintament.model": {
+          "type": "string",
+          "default": "gpt-4",
+          "description": "OpenAI model to use for analysis"
+        }
+      }
+    },
+    "menus": {
+      "editor/context": [
+        {
+          "command": "lintament.judge",
+          "when": "editorHasSelection || editorTextFocus",
+          "group": "lintament"
+        },
+        {
+          "command": "lintament.consult",
+          "when": "editorHasSelection || editorTextFocus",
+          "group": "lintament"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "lintament.judge",
+          "title": "Lintament: Judge Current File"
+        },
+        {
+          "command": "lintament.judgeWorkspace",
+          "title": "Lintament: Judge Entire Workspace"
+        },
+        {
+          "command": "lintament.consult",
+          "title": "Lintament: Consult the Ancients"
+        },
+        {
+          "command": "lintament.regress",
+          "title": "Lintament: Regress (Undo Last Fix)"
+        }
+      ]
+    },
+    "problemMatchers": []
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/vscode": "^1.74.0",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "openai": "^4.20.0"
+  }
+}
